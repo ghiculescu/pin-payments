@@ -1,6 +1,6 @@
 require 'httparty'
 
-require 'base'
-require 'card'
-require 'charge'
-require 'customer'
+require 'pin-payments/base'
+require 'pin-payments/card'
+require 'pin-payments/charge'
+require 'pin-payments/customer'

@@ -5,6 +5,7 @@ module Pin
 
     def self.setup(key, mode = :live)
       @@auth = {username: key, password: ''}
+      mode = mode.to_sym
       uri = if mode == :test
         "https://test-api.pin.net.au/1"
       elsif mode == :live
