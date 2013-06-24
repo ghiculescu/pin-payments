@@ -1,0 +1,13 @@
+{
+  "response": {
+    "token": "card_nytGw7koRg23EEp9NTmz9w",
+    "display_number": "XXXX-XXXX-XXXX-0000",
+    "scheme": "master",
+    "address_line1": "42 Sevenoaks St",
+    "address_line2": null,
+    "address_city": "Lathlain",
+    "address_postcode": "6454",
+    "address_state": "WA",
+    "address_country": "Australia"
+  }
+}

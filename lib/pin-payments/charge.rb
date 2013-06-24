@@ -14,24 +14,16 @@ module Pin
     #   {customer: <Pin::Customer>}
     # eg. {email: 'alex@payaus.com', description: '1 month of PayAus', amount: 19900, currency: 'AUD', ip_address: '203.192.1.172', customer_token: 'asdf'}
     def self.create(options = {})
-      options[:customer_token] = options.delete(:customer).token if options[:customer].present?
-      authenticated_post '/charges', options
+      options[:customer_token] = options.delete(:customer).token unless options[:customer].nil?
+      build_collection_from_response(authenticated_post('/charges', options))
     end
 
     def self.all # TODO: pagination
-      response = authenticated_get '/charges'
-      charges = []
-      if response.code == 200
-        response.parsed_response['response'].each do |charge|
-          charges << new(charge)
-        end
-      end
-      charges
+      build_collection_from_response(authenticated_get('/charges'))
     end
 
     def self.find(token)
-      response = authenticated_get "/charges/#{token}"
-      new(response.parsed_response['response'])
+      build_instance_from_response(authenticated_get("/charges/#{token}"))
     end
   end
 end

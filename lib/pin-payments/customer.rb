@@ -6,29 +6,21 @@ module Pin
     # card_or_token can be a Pin::Card object
     # or a card_token (as a string)
     def self.create(email, card_or_token)
-      body = if card_or_token.respond_to?(:to_hash) # card
+      options = if card_or_token.respond_to?(:to_hash) # card
         {card: card_or_token.to_hash}
       else # token
         {card_token: card_or_token}
       end.merge(email: email)
 
-      authenticated_post '/customers', body
+      build_collection_from_response(authenticated_post('/customers', options))
     end
 
     def self.all # TODO: pagination
-      response = authenticated_get '/customers'
-      customers = []
-      if response.code == 200
-        response.parsed_response['response'].each do |customer|
-          customers << new(customer)
-        end
-      end
-      customers
+      build_collection_from_response(authenticated_get('/customers'))
     end
 
     def self.find(token)
-      response = authenticated_get "/customers/#{token}"
-      new(response.parsed_response['response'])
+      build_instance_from_response(authenticated_get("/customers/#{token}"))
     end
   end
 end
