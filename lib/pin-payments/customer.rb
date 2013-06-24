@@ -2,16 +2,6 @@ module Pin
   class Customer < Base
     attr_accessor :email, :created_at, :token, :card
 
-    def initialize(attributes = {})
-      attributes.each do |name, value|
-        if name == 'card' # TODO: this should be generalised (has_one relationship i suppose)
-          self.card = Card.new value
-        else
-          send("#{name}=", value)
-        end
-      end
-    end
-
     # email should be a string
     # card_or_token can be a Pin::Card object
     # or a card_token (as a string)

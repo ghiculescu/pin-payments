@@ -1,21 +1,29 @@
 PATH
   remote: .
   specs:
-    pin (0.0.1)
+    pin-payments (0.0.1)
       httparty
 
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.3)
+    crack (0.4.0)
+      safe_yaml (~> 0.9.0)
     httparty (0.11.0)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
     multi_json (1.7.7)
     multi_xml (0.5.4)
+    safe_yaml (0.9.3)
+    webmock (1.11.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bundler (~> 1.3)
-  pin!
+  pin-payments!
+  webmock

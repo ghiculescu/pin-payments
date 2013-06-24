@@ -1,7 +1,16 @@
 module Pin
   class Base
     include HTTParty
-    base_uri "https://test-api.pin.net.au/1"
+
+    def initialize(attributes = {})
+      attributes.each do |name, value|
+        if name == 'card' # TODO: this should be generalised (has_one relationship i suppose)
+          self.card = Card.new value
+        else
+          send("#{name}=", value)
+        end
+      end
+    end
 
     def self.setup(key, mode = :live)
       @@auth = {username: key, password: ''}
@@ -20,7 +29,7 @@ module Pin
     def self.authenticated_post(url, body)
       post(url, body: body, basic_auth: @@auth)
     end
-    def self.authenticated_get(url, query = {})
+    def self.authenticated_get(url, query = nil)
       get(url, query: query, basic_auth: @@auth)
     end
   end

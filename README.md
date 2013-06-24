@@ -4,9 +4,9 @@ A wrapper for the [pin.net.au](https://pin.net.au/) [API](https://pin.net.au/doc
 
     gem install pin-payments
 
-Extracted from [PayAus](http://www.payaus.com/)
+Extracted from [PayAus](http://www.payaus.com/). Still a bit rough around the edges.
 
-MIT licensed.
+MIT licensed, contributions are very welcome!
 
 ## Usage
 

@@ -16,6 +16,8 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/ghiculescu/pin-payments'
 
   s.add_dependency "httparty"
+  s.add_dependency "json"
 
   s.add_development_dependency "bundler", "~> 1.3"
+  s.add_development_dependency "webmock"
 end
