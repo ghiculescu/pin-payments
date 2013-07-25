@@ -12,7 +12,7 @@ module Pin
         {card_token: card_or_token}
       end.merge(email: email)
 
-      build_collection_from_response(authenticated_post('/customers', options))
+      build_instance_from_response(authenticated_post('/customers', options))
     end
 
     def self.all # TODO: pagination
