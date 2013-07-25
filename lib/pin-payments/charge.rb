@@ -3,6 +3,7 @@ module Pin
     attr_accessor :token,
                   :email, :description, :amount, :currency, :ip_address,
                   :card, :card_token, :customer_token,
+                  :amount_refunded, :total_fees, :merchant_entitlement, :refund_pending,
                   :success, :status_message, :error_message, :transfer, :created_at
 
     # options should be a hash with the following params
@@ -15,7 +16,7 @@ module Pin
     # eg. {email: 'alex@payaus.com', description: '1 month of PayAus', amount: 19900, currency: 'AUD', ip_address: '203.192.1.172', customer_token: 'asdf'}
     def self.create(options = {})
       options[:customer_token] = options.delete(:customer).token unless options[:customer].nil?
-      build_collection_from_response(authenticated_post('/charges', options))
+      build_instance_from_response(authenticated_post('/charges', options))
     end
 
     def self.all # TODO: pagination
