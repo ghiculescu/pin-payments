@@ -56,3 +56,7 @@ customer = customers.find {|c| c.email == user.email} # assume user is the user 
 Pin::Charge.create email: user.email, description: '1 month of service', amount: 19900, currency: 'AUD',
                    ip_address: user.ip_address, customer: customer
 ```
+
+## Credits
+
+https://github.com/ghiculescu/pin-payments/graphs/contributors
