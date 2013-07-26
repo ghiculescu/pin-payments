@@ -24,7 +24,7 @@ module Pin
     def self.create(options = {})
       response = authenticated_post '/cards', options
       if response.code == 201 # card created
-        new(response.parsed_response['response'])
+        build_instance_from_response(response)
       else
         # handle the error
         false
