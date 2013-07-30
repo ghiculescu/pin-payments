@@ -11,7 +11,7 @@ module TestHelper
   SECRET_KEY = ENV["PIN_SECRET_KEY"] || "fake_key"
   PIN_ENV = ENV["PIN_ENV"] || :test
 
-  Pin::Base.setup SECRET_KEY, PIN_ENV
+  Pin.setup(secret_key: SECRET_KEY, mode: PIN_ENV)
 
   def get_file(filename)
     File.new(File.dirname(__FILE__) + "/stub_responses/" + filename)
