@@ -15,19 +15,15 @@ module Pin
       hash
     end
 
-    # options should be a hash with the following keys:
-    # :number, :expiry_month, :expiry_year, :cvc, :name, :address_line1,
-    # :address_city, :address_postcode, :address_state, :address_country
-    #
-    # it can also have the following optional keys:
-    # :address_line2
-    def self.create(options = {})
-      response = authenticated_post '/cards', options
-      if response.code == 201 # card created
-        build_instance_from_response(response)
-      else
-        # handle the error
-        false
+    class << self
+      # options should be a hash with the following keys:
+      # :number, :expiry_month, :expiry_year, :cvc, :name, :address_line1,
+      # :address_city, :address_postcode, :address_state, :address_country
+      #
+      # it can also have the following optional keys:
+      # :address_line2
+      def create(options = {})
+        super(options)
       end
     end
   end

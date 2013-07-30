@@ -12,39 +12,60 @@ module Pin
       end
     end
 
-    def self.setup(key, mode = :live)
-      @@auth = {username: key, password: ''}
-      mode = mode.to_sym
-      uri = if mode == :test
-        "https://test-api.pin.net.au/1"
-      elsif mode == :live
-        "https://api.pin.net.au/1"
-      else
-        raise "Incorrect API mode! Must be :live or :test (leave blank for :live)."
-      end
-      base_uri uri
-    end
+    class << self
 
-    protected
-    def self.authenticated_post(url, body)
-      post(url, body: body, basic_auth: @@auth)
-    end
-    def self.authenticated_get(url, query = nil)
-      get(url, query: query, basic_auth: @@auth)
-    end
-
-    def self.build_instance_from_response(response)
-      new(response.parsed_response['response'])
-    end
-
-    def self.build_collection_from_response(response)
-      models = []
-      if response.code == 200
-        response.parsed_response['response'].each do |model|
-          models << new(model)
+      def create(options)
+        response = authenticated_post(path, options)
+        if response.code == 201 # object created
+          build_instance_from_response(response)
+        else
+          raise Pin::APIError.new(response)
         end
       end
-      models
+      
+      def all # TODO: pagination
+        build_collection_from_response(authenticated_get(path))
+      end
+
+      def find(token)
+        build_instance_from_response(authenticated_get("#{path}/#{token}"))
+      end
+    
+    protected
+    
+      def auth
+        Pin.auth
+      end
+    
+      def path
+        short = if i = name.rindex('::')
+          name[(i+2)..-1]
+        else
+          name
+        end
+        "/#{short}s".downcase
+      end
+    
+      def authenticated_post(url, body)
+        post(url, body: body, basic_auth: auth)
+      end
+      def authenticated_get(url, query = nil)
+        get(url, query: query, basic_auth: auth)
+      end
+
+      def build_instance_from_response(response)
+        new(response.parsed_response['response'])
+      end
+
+      def build_collection_from_response(response)
+        models = []
+        if response.code == 200
+          response.parsed_response['response'].each do |model|
+            models << new(model)
+          end
+        end
+        models
+      end
     end
   end
 end
