@@ -1,6 +1,6 @@
 ## pin-payments
 
-A wrapper for the [pin.net.au](https://pin.net.au/) [API](https://pin.net.au/docs/api). This is Qutonic's fork with a different API. MIT license.
+A wrapper for the [pin.net.au](https://pin.net.au/) [API](https://pin.net.au/docs/api). MIT licensed.
 
 ## Usage
 
@@ -10,13 +10,13 @@ You'll need to create an account at [pin.net.au](https://pin.net.au/) first.
 
 ### Setup
 
-Create an initializer, eg. `pin.rb`:
+Create an initializer, eg. `pin.rb`, using keys from Pin's [Your Account](https://dashboard.pin.net.au/account) page.
 
 ```ruby
 Pin.setup secret_key: 'PIN_SECRET_KEY', publishable_key: 'PIN_PUBLISHABLE_KEY', mode: :test
 ```
 
-You can get your keys from Pin's [Your Account](https://dashboard.pin.net.au/account) page. The second argument should be `:live` or `:test` depending on which API you want to access. The `publishable_key` is optional.
+The `mode` should be `:live` or `:test` depending on which API you want to access. The `publishable_key` is optional.
 
 Alternatively, you could fetch keys from a YAML file, e.g. like this initializer:
 
@@ -58,12 +58,13 @@ You'll probably want to create a form through which users can enter their detail
 <%= javascript_include_tag Pin.js_url %>
 ```
 
-Then, in your controller:
+Creating a charge is simple. In your controller:
 
 ```ruby
 def create
   Pin::Charge.create email: 'user@example.com', description: '1 year of service', amount: 10000,
                      currency: 'AUD', ip_address: params[:ip_address], card_token: params[:card_token]
+
   redirect_to new_payment_path, notice: "Your credit card has been charged"
 end
 ```
@@ -73,9 +74,14 @@ This will issue a once-off charge ([API](https://pin.net.au/docs/api/charges)).
 For a recurring charge, you may wish to create a customer record at Pin. To do this, either create a `Card` object first, then a corresponding `Customer` via the [API](https://pin.net.au/docs/api/customers); or use a `card_token` returned from `Pin.js` to create a customer. Note that in either case you may activate additional compliance provisions in Pin's [Terms & Conditions](https://pin.net.au/terms).
 
 ```ruby
+# this doesn't contact the API
 card = Pin::Card.new number: '5520000000000000', expiry_month: '12', expiry_year: '2018', cvc: '123',
                      name: 'User Name', address_line1: 'GPO Box 1234', address_city: 'Melbourne', address_postcode: '3001', address_state: 'VIC', address_country: 'Australia'
-customer = Pin::Customer.create 'user@example.com', card # this contacts the API
+
+# this contacts the API and returns a customer
+customer = Pin::Customer.create 'user@example.com', card
+
+# this contacts the API and returns a charge
 Pin::Charge.create email: 'user@example.com', description: '1 year of service', amount: 10000,
                    currency: 'AUD', ip_address: '127.0.0.1', customer: customer # shorthand for customer_token: customer.token
 ```
@@ -83,10 +89,17 @@ Pin::Charge.create email: 'user@example.com', description: '1 year of service', 
 You can view your customers in the [Pin dashboard](https://dashboard.pin.net.au/test/customers). This lets you charge customers regularly without asking for their credit card details each time.
 
 ```ruby
+# get all customers from the API
 customers = Pin::Customer.all
-customer = customers.find {|c| c.email == user.email} # assume user is the user you are trying to charge
-Pin::Charge.create email: user.email, description: '1 month of service', amount: 19900, currency: 'AUD',
-                   ip_address: user.ip_address, customer: customer
+
+# find the customer you are trying to charge, assuming `current_user` is defined elsewhere
+customer = customers.find {|c| c.email == current_user.email}
+
+# create a charge for the customer
+# note that using this method you will need to store the `ip_address` of the user
+# generally you can store this from when you initially created the customer (via Pin.js)
+Pin::Charge.create email: user.email, description: '1 month of service', amount: 19900,
+                   currency: 'AUD', ip_address: user.ip_address, customer: customer
 ```
 
 Errors from the API will result in a`Pin::APIError` exception being thrown:
