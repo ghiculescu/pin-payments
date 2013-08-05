@@ -41,7 +41,7 @@ module Pin
       elsif mode == :test
         "https://test-api.pin.net.au"
       else
-        raise "Incorrect API mode! Must be :live or :test"
+        raise ArgumentError, "Incorrect API mode! Must be :live or :test"
       end
     
       @js_url = "#{uri}/pin.js"

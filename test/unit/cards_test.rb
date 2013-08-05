@@ -4,7 +4,7 @@ class CardsTest < Test::Unit::TestCase
   include TestHelper
   
   def setup
-    mock_post('Cards', false)
+    mock_post('Cards')
   end
 
   def test_create

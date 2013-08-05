@@ -4,7 +4,7 @@ class ChargesTest < Test::Unit::TestCase
   include TestHelper
   
   def setup
-    mock_post('Cards', false)
+    mock_post('Cards')
     mock_api('Charges')
     mock_api('Customers')
   end

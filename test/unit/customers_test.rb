@@ -5,7 +5,7 @@ class CustomersTest < Test::Unit::TestCase
   
   def setup
     mock_api('Customers')
-    mock_post('Cards', false)
+    mock_post('Cards')
   end
 
   def test_get_all # for some reason `test "get all" do` wasn't working...

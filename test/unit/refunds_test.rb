@@ -28,4 +28,5 @@ class RefundsTest < Test::Unit::TestCase
     refunds = charge.refunds
     assert_equal 1, refunds.length
   end
+
 end
