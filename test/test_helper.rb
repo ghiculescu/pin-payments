@@ -43,8 +43,8 @@ module TestHelper
     end
   end
 
-  def mock_api(model_name)
-    mock_get(model_name)
-    mock_post(model_name)
+  def mock_api(model_name, do_each = true)
+    mock_get(model_name, do_each)
+    mock_post(model_name, do_each)
   end
 end

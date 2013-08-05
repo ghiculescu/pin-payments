@@ -5,6 +5,7 @@ require 'pin-payments/base'
 require 'pin-payments/card'
 require 'pin-payments/charge'
 require 'pin-payments/customer'
+require 'pin-payments/refund'
 
 module Pin
   class Error < StandardError; end

@@ -6,6 +6,8 @@ module Pin
                   :amount_refunded, :total_fees, :merchant_entitlement, :refund_pending,
                   :success, :status_message, :error_message, :transfer, :created_at
 
+    attr_accessor :refunds
+
     class << self
       # options should be a hash with the following params
       # email, description, amount, currency, ip_address are mandatory
@@ -19,6 +21,12 @@ module Pin
         options[:customer_token] = options.delete(:customer).token unless options[:customer].nil?
         super(options)
       end
+    end
+
+    # find all refunds for the current Charge object
+    # returns a list of Refunds
+    def refunds
+      Refund.all(self.token)
     end
   end
 end

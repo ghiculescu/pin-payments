@@ -14,7 +14,7 @@ module Pin
 
     class << self
 
-      def create(options)
+      def create(options, path = api_path)
         response = authenticated_post(path, options)
         if response.code == 201 # object created
           build_instance_from_response(response)
@@ -23,11 +23,18 @@ module Pin
         end
       end
       
-      def all # TODO: pagination
+      def all(path = api_path) # TODO: pagination
         build_collection_from_response(authenticated_get(path))
       end
 
-      def find(token)
+      def first(path = api_path)
+        all(path).first
+      end
+      def last(path = api_path)
+        all(path).last
+      end
+
+      def find(token, path = api_path)
         build_instance_from_response(authenticated_get("#{path}/#{token}"))
       end
     
@@ -37,7 +44,7 @@ module Pin
         Pin.auth
       end
     
-      def path
+      def api_path
         short = if i = name.rindex('::')
           name[(i+2)..-1]
         else

@@ -1,0 +1,19 @@
+{
+  "response": [
+    {
+      "token": "rf_ERCQy--Ay6o-NKGiUVcKKA",
+      "success": null,
+      "amount": 400,
+      "currency": "AUD",
+      "charge": "ch_bZ3RhJnIUZ8HhfvH8CCvfA",
+      "created_at": "2012-10-27T13:00:00Z",
+      "error_message": null,
+      "status_message": "Pending"
+    }
+  ],
+  "pagination": {
+    "current": 1,
+    "per_page": 25,
+    "count": 1
+  }
+}
