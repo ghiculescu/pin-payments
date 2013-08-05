@@ -29,4 +29,10 @@ class RefundsTest < Test::Unit::TestCase
     assert_equal 1, refunds.length
   end
 
+  def test_create_refund
+    charge = Pin::Charge.first
+
+    refund = charge.refund!
+    assert_not_nil refund
+  end
 end

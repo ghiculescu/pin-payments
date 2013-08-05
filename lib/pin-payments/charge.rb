@@ -26,7 +26,13 @@ module Pin
     # find all refunds for the current Charge object
     # returns a list of Refunds
     def refunds
-      Refund.all(self.token)
+      Refund.all(token)
+    end
+
+    # creates a refund for this Charge
+    # refunds the full amount of the charge by default, provide an amount in cents to override
+    def refund!(amnt = nil)
+      Refund.create(token, amnt)
     end
   end
 end
