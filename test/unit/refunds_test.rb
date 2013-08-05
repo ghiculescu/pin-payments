@@ -21,4 +21,11 @@ class RefundsTest < Test::Unit::TestCase
     refunds = Pin::Refund.all(charge.token)
     assert_equal 1, refunds.length
   end
+
+  def test_get_refunds_as_charge_method
+    charge = Pin::Charge.first
+
+    refunds = charge.refunds
+    assert_equal 1, refunds.length
+  end
 end
