@@ -28,6 +28,7 @@ module TestHelper
   
   def mock_get(model_name, do_each = true)
     stub_request(:get, /#{model_name.downcase}$/).to_return(body: get_record_json(model_name.downcase.pluralize), status: 200, headers: {'Content-Type' => 'application/json; charset=utf-8'})
+    stub_request(:get, /#{model_name.downcase}\?page=[0-9]$/).to_return(body: get_record_json(model_name.downcase.pluralize), status: 200, headers: {'Content-Type' => 'application/json; charset=utf-8'})
     if do_each
       Pin.const_get(model_name.singularize).all.each do |record|
         stub_request(:get, /#{model_name.downcase}\/#{record.token}$/).to_return(body: get_record_json(model_name.downcase.singularize, false, record.token), status: 200, headers: {'Content-Type' => 'application/json; charset=utf-8'})

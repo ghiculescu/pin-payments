@@ -15,7 +15,7 @@ module Pin
       end
 
       def all(charge_or_charge_id)
-        super(path_for(charge_or_charge_id))
+        super(path: path_for(charge_or_charge_id))
       end
 
       protected

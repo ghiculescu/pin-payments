@@ -23,19 +23,26 @@ module Pin
         end
       end
       
-      def all(path = api_path) # TODO: pagination
-        build_collection_from_response(authenticated_get(path))
+      def all(options = {})
+        options = {path: api_path, page: 1}.merge(options)
+        paging = "page=#{options[:page]}" unless options[:page] == 1
+        build_collection_from_response(authenticated_get(options[:path], paging))
       end
 
-      def first(path = api_path)
-        all(path).first
-      end
-      def last(path = api_path)
-        all(path).last
+      def all_pages(options = {})
+        options = options.merge(path: api_path)
       end
 
-      def find(token, path = api_path)
-        build_instance_from_response(authenticated_get("#{path}/#{token}"))
+      def first(options = {})
+        all(options).first
+      end
+      def last(options = {})
+        all(options).last
+      end
+
+      def find(token, options = {})
+        options = options.merge(path: api_path)
+        build_instance_from_response(authenticated_get("#{options[:path]}/#{token}"))
       end
     
     protected
@@ -71,7 +78,8 @@ module Pin
             models << new(model)
           end
         end
-        models
+        pg = response.parsed_response['pagination']
+        CollectionResponse.new(models, pg['per_page'], pg['pages'], pg['current'])
       end
     end
   end

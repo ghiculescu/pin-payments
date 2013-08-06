@@ -20,6 +20,7 @@
   "pagination": {
     "current": 1,
     "per_page": 25,
+    "pages": 1,
     "count": 1
   }
 }
