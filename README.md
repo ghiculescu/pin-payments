@@ -96,7 +96,7 @@ Pin::Charge.create email: 'user@example.com', description: '1 year of service', 
                    currency: 'AUD', ip_address: '127.0.0.1', customer: customer # shorthand for customer_token: customer.token
 ```
 
-You can view your customers in the [Pin dashboard](https://dashboard.pin.net.au/test/customers). This lets you charge customers regularly without asking for their credit card details each time.
+You can view your customers in the [Pin dashboard](https://dashboard.pin.net.au/test/customers). Storing customers allows you to charge them regularly without asking for their credit card details each time.
 
 ```ruby
 # get all customers from the API
@@ -112,7 +112,7 @@ Pin::Charge.create email: user.email, description: '1 month of service', amount:
                    currency: 'AUD', ip_address: user.ip_address, customer: customer
 ```
 
-Errors from the API will result in a`Pin::APIError` exception being thrown:
+Errors from the API will result in a`Pin::APIError` exception being raised:
 
 ```ruby
 begin
