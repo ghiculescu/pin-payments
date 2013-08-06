@@ -10,7 +10,7 @@ Available via [RubyGems](https://rubygems.org/gems/pin-payments). Install the us
 
 ## Build Status
 
-"!https://travis-ci.org/ghiculescu/pin-payments.png!":https://travis-ci.org/ghiculescu/pin-payments
+[![Build status](https://travis-ci.org/ghiculescu/pin-payments.png)](https://travis-ci.org/ghiculescu/pin-payments)
 
 ## Usage
 
