@@ -8,6 +8,10 @@ Available via [RubyGems](https://rubygems.org/gems/pin-payments). Install the us
 
     gem install pin-payments
 
+## Build Status
+
+"!https://travis-ci.org/ghiculescu/pin-payments.png!":https://travis-ci.org/ghiculescu/pin-payments
+
 ## Usage
 
 ### Prerequisites
