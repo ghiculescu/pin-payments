@@ -1,5 +1,5 @@
 require "rubygems"
-require 'debugger'
+#require 'debugger'
 require 'test/unit'
 require 'webmock/test_unit'
 require 'active_support/inflector'
