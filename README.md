@@ -2,6 +2,12 @@
 
 A wrapper for the [pin.net.au](https://pin.net.au/) [API](https://pin.net.au/docs/api). MIT licensed.
 
+## Installation
+
+Available via [RubyGems](https://rubygems.org/gems/pin-payments). Install the usual way;
+
+    gem install pin-payments
+
 ## Usage
 
 ### Prerequisites
