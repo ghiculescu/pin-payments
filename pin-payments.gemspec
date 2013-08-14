@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |s|
   s.name        = 'pin-payments'
-  s.version     = '1.0'
+  s.version     = '1.1'
   s.date        = '2013-08-06'
   s.summary     = "Pin Payments API wrapper"
   s.description = "A wrapper for the Pin Payments (https://pin.net.au/) API"
