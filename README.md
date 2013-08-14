@@ -108,6 +108,9 @@ Pin::Charge.all
 
 # get a charge with token "ch_lfUYEBK14zotCTykezJkfg"
 Pin::Charge.find("ch_lfUYEBK14zotCTykezJkfg")
+
+# search for charges - see https://pin.net.au/docs/api/charges#search-charges for available parameters
+Pin::Charge.search(query: 'refund', sort: :amount, start_date: 1.month.ago, end_date: '2013-08-01', direction: 'desc')
 ```
 
 ### Customers
