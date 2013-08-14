@@ -25,12 +25,8 @@ module Pin
       
       def all(options = {})
         options = {path: api_path, page: 1}.merge(options)
-        paging = "page=#{options[:page]}" unless options[:page] == 1
+        paging = {page: options[:page]} unless options[:page] == 1
         build_collection_from_response(authenticated_get(options[:path], paging))
-      end
-
-      def all_pages(options = {})
-        options = options.merge(path: api_path)
       end
 
       def first(options = {})
@@ -46,7 +42,6 @@ module Pin
       end
     
     protected
-    
       def auth
         Pin.auth
       end

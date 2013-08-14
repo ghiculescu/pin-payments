@@ -21,6 +21,18 @@ module Pin
         options[:customer_token] = options.delete(:customer).token unless options[:customer].nil?
         super(options)
       end
+
+      # search for charges using parameters provided in options
+      # available parameters:
+      #   query (string)
+      #   start_date (date, or string formatted as 'YYYY-MM-DD')
+      #   end_date (date, or string formatted as 'YYYY-MM-DD')
+      #   sort (string or symbol: "created_at" (default), "description", or "amount")
+      #   direction ("asc"/"desc", or 1/-1)
+      def search(options = {})
+        options[:direction] = options[:direction] == 'asc' ? 1 : -1 if ['asc', 'desc'].include?(options[:direction])
+        build_collection_from_response(authenticated_get('/charges/search', options))
+      end
     end
 
     # find all refunds for the current Charge object
