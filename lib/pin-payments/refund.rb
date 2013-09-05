@@ -20,7 +20,7 @@ module Pin
 
       protected
       def api_path
-        "charges/%s/refunds"
+        "/charges/%s/refunds"
       end
 
       private
