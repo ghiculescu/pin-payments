@@ -21,12 +21,12 @@ module Pin
     end
     
     def to_s
-      "#@code #@error #@description"
+      "#{@code} #{@error} #{@description}"
     end
   end
   
   class << self
-    attr_reader :publishable_key, :js_url, :auth
+    attr_reader :publishable_key, :base_url, :js_url, :auth
 
     def setup(options)
       raise ArgumentError, "Pin.setup wants an options hash" unless Hash === options
@@ -46,6 +46,7 @@ module Pin
       end
     
       @js_url = "#{uri}/pin.js"
+      @base_url = "#{uri}/1"
       Pin::Base.base_uri "#{uri}/1"
     end
   end
