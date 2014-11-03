@@ -7,6 +7,28 @@ class CardsTest < Test::Unit::TestCase
     mock_post('Cards')
   end
 
+  def test_new
+    card = Pin::Card.new(
+      number: '5520000000000000',
+      expiry_month: '12',
+      expiry_year: '2014',
+      cvc: '123',
+      name: 'Roland Robot',
+      address_line1: '42 Sevenoaks St',
+      address_city: 'Lathlain',
+      address_postcode: '6454',
+      address_state: 'WA',
+      address_country: 'Australia',
+      primary: nil,
+    )
+    assert_kind_of Pin::Card, card
+  end
+
+  def test_new_with_unknown_attribute
+    card = Pin::Card.new(some_weird_thing: nil)
+    assert_kind_of Pin::Card, card
+  end
+
   def test_create
     attributes = {number: '5520000000000000', expiry_month: '12', expiry_year: '2014', cvc: '123', name: 'Roland Robot', address_line1: '42 Sevenoaks St', address_city: 'Lathlain', address_postcode: '6454', address_state: 'WA', address_country: 'Australia'}
     card = Pin::Card.create(attributes)

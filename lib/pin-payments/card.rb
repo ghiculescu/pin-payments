@@ -3,10 +3,10 @@ module Pin
     attr_accessor :number, :expiry_month, :expiry_year, :cvc, :name, :address_line1,
                   :address_line2, :address_city, :address_postcode, :address_state,
                   :address_country,
-                  :token, :display_number, :scheme
+                  :token, :display_number, :scheme, :primary
 
     def initialize(attributes = {})
-      attributes.each {|name, value| send("#{name}=", value)}
+      attributes.each {|name, value| send("#{name}=", value) if respond_to? "#{name}=" }
     end
 
     def to_hash
