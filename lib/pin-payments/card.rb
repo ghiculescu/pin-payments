@@ -6,7 +6,7 @@ module Pin
                   :token, :display_number, :scheme, :primary
 
     def initialize(attributes = {})
-      attributes.each {|name, value| send("#{name}=", value)}
+      attributes.each {|name, value| send("#{name}=", value) if respond_to? "#{name}=" }
     end
 
     def to_hash
